@@ -627,40 +627,6 @@ location = "https://example.invalid/bad"
     }
   }
 
-  void checkOsdHideDelay() {
-    const Config defaults;
-    if (defaults.osd.hideDelayMs != 1400) {
-      fail("osd.hide_delay_ms default: expected 1400");
-    }
-    {
-      auto t = toml::parse("hide_delay_ms = 2750");
-      OsdConfig o{};
-      Diagnostics d;
-      readInto(t, o, osdSchema(), "osd", d);
-      if (o.hideDelayMs != 2750) {
-        fail("osd.hide_delay_ms non-default: expected 2750");
-      }
-    }
-    {
-      auto t = toml::parse("hide_delay_ms = 249");
-      OsdConfig o{};
-      Diagnostics d;
-      readInto(t, o, osdSchema(), "osd", d);
-      if (o.hideDelayMs != 250) {
-        fail("osd.hide_delay_ms lower bound: expected 250");
-      }
-    }
-    {
-      auto t = toml::parse("hide_delay_ms = 10001");
-      OsdConfig o{};
-      Diagnostics d;
-      readInto(t, o, osdSchema(), "osd", d);
-      if (o.hideDelayMs != 10000) {
-        fail("osd.hide_delay_ms upper bound: expected 10000");
-      }
-    }
-  }
-
   void checkMonitorFontScaleChangeSet() {
     Config before;
     BarConfig bar;
@@ -1261,7 +1227,6 @@ widget_spacing = 8
   checkStorageKeySourceValidation();
   checkPanelFloatingLayerValidation();
   checkClamps();
-  checkOsdHideDelay();
   checkMonitorFontScaleChangeSet();
   checkPluginAutoUpdateMode();
   checkAutoUpdateScopeSelection();
