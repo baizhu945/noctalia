@@ -628,7 +628,7 @@ location = "https://example.invalid/bad"
     }
   }
 
-  void checkMonitorFontScaleChangeSet() {
+  void checkMonitorOverrideChangeSet() {
     Config before;
     BarConfig bar;
     bar.name = "default";
@@ -637,10 +637,16 @@ location = "https://example.invalid/bad"
     bar.monitorOverrides.push_back(monitor);
     before.bars.push_back(bar);
 
-    Config after = before;
-    after.bars.front().monitorOverrides.front().fontScale = 1.5F;
-    if (!computeConfigChangeSet(before, after).bars) {
+    Config fontScaleChanged = before;
+    fontScaleChanged.bars.front().monitorOverrides.front().fontScale = 1.5F;
+    if (!computeConfigChangeSet(before, fontScaleChanged).bars) {
       fail("monitor font_scale override did not mark bars changed");
+    }
+
+    Config blurChanged = before;
+    blurChanged.bars.front().monitorOverrides.front().compositorBlur = false;
+    if (!computeConfigChangeSet(before, blurChanged).bars) {
+      fail("monitor compositor_blur override did not mark bars changed");
     }
   }
 
@@ -1230,7 +1236,7 @@ widget_spacing = 8
   checkStorageKeySourceValidation();
   checkPanelFloatingLayerValidation();
   checkClamps();
-  checkMonitorFontScaleChangeSet();
+  checkMonitorOverrideChangeSet();
   checkPluginAutoUpdateMode();
   checkAutoUpdateScopeSelection();
   checkDuplicatePluginSourceRejection();

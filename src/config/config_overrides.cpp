@@ -187,6 +187,9 @@ namespace {
     if (ovr.backgroundOpacity) {
       resolved.backgroundOpacity = *ovr.backgroundOpacity;
     }
+    if (ovr.compositorBlur) {
+      resolved.compositorBlur = *ovr.compositorBlur;
+    }
     if (ovr.border) {
       resolved.border = *ovr.border;
     }
