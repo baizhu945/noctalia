@@ -1773,7 +1773,7 @@ void SettingsWindow::refreshSettingsRegistry(const Config& cfg) {
         .control =
             settings::ButtonSetting{
                 .label = i18n::tr("settings.schema.notifications.history-storage.button"),
-                .action = [this]() { m_notificationManager->retryHistoryPersistence(); },
+                .action = [this] { m_notificationManager->retryHistoryPersistence(); },
                 .glyph = "refresh",
             },
         .searchText = "notification history encryption keyring secret service retry migration unlock",
